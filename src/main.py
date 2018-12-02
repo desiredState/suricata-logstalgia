@@ -23,9 +23,7 @@ class SuricataLogstalgia(object):
             for s_line in tailer.follow(open("/eve.json")):
                 try:
                     j_line = json.loads(s_line)
-
                     dt_ts = parser.parse(j_line['timestamp'])
-
                     unix_ts = time.mktime(dt_ts.timetuple())
 
                     try:
@@ -50,12 +48,7 @@ class SuricataLogstalgia(object):
                         path,
                         response_code,
                         response_size,
-                        success,
-                        # response_colour,
-                        # referrer_url,
-                        # user_agent,
-                        # virtual_host,
-                        # pid_other
+                        success
                     )
 
                     print(logstalgia_line)
@@ -64,9 +57,7 @@ class SuricataLogstalgia(object):
                     continue
 
         except IOError as e:
-            print("Failed to open \"{}\" with error:\n"
-                  "{}".format(self.eve_path, e))
-
+            print("Failed to open EVE log with error:\n{}".format(e))
             sys.exit(1)
 
 
